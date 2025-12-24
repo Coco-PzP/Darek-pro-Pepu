@@ -18,34 +18,35 @@
     cursor: pointer;
   }
 
-  .circle {
-    width: 220px;
-    height: 220px;
+  /* světelná „brána“ */
+  .gate {
+    width: 260px;
+    height: 140px;
     background: black;
-    border-radius: 50%;
-    transition:
+    transform: perspective(500px) rotateX(15deg);
+    transition: 
       background 3s ease-in-out,
       box-shadow 3s ease-in-out;
   }
 
-  .circle.on {
+  .gate.on {
     background: white;
     box-shadow:
-      0 0 25px rgba(255,255,255,0.25),
-      0 0 70px rgba(255,255,255,0.15);
+      0 0 60px rgba(255,255,255,0.3),
+      0 0 120px rgba(255,255,255,0.15),
+      0 0 200px rgba(255,255,255,0.1);
   }
 
   .text {
     margin-top: 48px;
     font-family: 'Inter', sans-serif;
-    font-size: 18px;
-    letter-spacing: 0.18em;
+    font-size: 20px;
+    letter-spacing: 0.15em;
     color: rgba(255,255,255,0.85);
     opacity: 0;
-    transition: opacity 2.5s ease;
-    text-transform: lowercase;
-
-    /* jemný „odrazkový“ efekt */
+    text-transform: none;
+    text-align: center;
+    transition: opacity 2s ease;
     text-shadow:
       0 0 6px rgba(255,255,255,0.35),
       0 0 18px rgba(255,255,255,0.18);
@@ -58,23 +59,32 @@
 </head>
 
 <body>
-  <div class="circle" id="circle"></div>
-  <div class="text" id="text">Ještě není. Ale bude.</div>
+  <div class="gate" id="gate"></div>
+
+  <div class="text" id="line1">Ještě není.</div>
+  <div class="text" id="line2">Ale bude.</div>
 
   <script>
-    const circle = document.getElementById("circle");
-    const text = document.getElementById("text");
+    const gate = document.getElementById("gate");
+    const line1 = document.getElementById("line1");
+    const line2 = document.getElementById("line2");
 
     document.body.addEventListener("click", () => {
-      if (circle.classList.contains("on")) return;
+      if (gate.classList.contains("on")) return;
 
-      circle.classList.add("on");
+      // světelná brána
+      gate.classList.add("on");
 
+      // první věta s jemným zpožděním
       setTimeout(() => {
-        text.classList.add("show");
-      }, 3200); // text až po plném rozsvícení
+        line1.classList.add("show");
+      }, 3000);
+
+      // druhá věta s dalším zpožděním
+      setTimeout(() => {
+        line2.classList.add("show");
+      }, 5000);
     });
   </script>
 </body>
 </html>
-
